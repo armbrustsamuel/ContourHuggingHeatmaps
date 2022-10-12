@@ -1,0 +1,45 @@
+@startuml
+
+partition Setup {
+    (*) --> "Configuration"
+    "Configuration" --> "LandmarkDataset"
+    "LandmarkDataset" --> "Augmentation"
+}
+
+partition Model {
+    "Augmentation" --> "UNet"
+    ' "LoadModel" --> "UNet"
+    "UNet" --> [calibration] "Scale/Temperatures"
+    ' self.temperatures = nn.Parameter(torch.ones(1, no_of_landmarks, 1, 1), requires_grad=False)
+    "Scale/Temperatures" --> "Softmax2D"
+    ' expand to probabilities using Softmax
+    "Softmax2D" --> "NLLLoss"
+    ' Same as cross entropy -- minimize error
+    "NLLLoss" --> [Same as cross entropy -- minimize error] "evaluate"
+}
+
+partition Evaluation { 
+    "evaluate" --> [One-hot heatmap] "hottestPoint"
+    ' "landmarkErrors" --> [radial/localization errors] "printErrors"
+    ' "printErrors" --> "radialErrorLandmark"
+    ' "radialErrorLandmark" --> [localization error] "lineAlg"
+    "hottestPoint" --> [np.max(heatmap)] "probabilityPerLandmark"
+    "probabilityPerLandmark" --> [np.linalg.norm] === S1 ===
+    
+    ' ERE is specially based on np.linalg.norm
+    === S1 === --> [np.linalg.norm)] "ERECalc"
+    "ERECalc" --> === S2 ===
+
+    ' MRE is based on all losses
+    === S1 === --> [np.mean(all_radial_errors] "MRECalc"
+    "MRECalc" --> === S2 ===
+    
+    ' SDR based on radial errors
+    === S1 === --> [np.sum(radial errors)] "SDRCalc"
+    "SDRCalc" --> === S2 ===
+    
+    === S2 === --> "GenerateGraphs"
+    "GenerateGraphs" --> (*)
+}
+
+@enduml
