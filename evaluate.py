@@ -14,6 +14,7 @@ def get_hottest_point(heatmap):
 
 def get_mode_probability(heatmap):
     plt.imshow(heatmap, cmap='gray')
+    # comment to test colab
     return np.max(heatmap)
 
 
