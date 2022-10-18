@@ -7,9 +7,9 @@ def get_hottest_point(heatmap):
     w, h = heatmap.shape
     flattened_heatmap = np.ndarray.flatten(heatmap)
     hottest_idx = np.argmax(flattened_heatmap)
-    var_to_return = np.flip(np.array(np.unravel_index(hottest_idx, [w, h])))
-    plt.imshow(var_to_return, cmap='gray')
-    return var_to_return
+    # var_to_return = 
+    # plt.imshow(var_to_return, cmap='gray')
+    return np.flip(np.array(np.unravel_index(hottest_idx, [w, h])))
 
 
 def get_mode_probability(heatmap):

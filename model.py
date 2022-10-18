@@ -17,10 +17,31 @@ class Unet(nn.Module):
         self.temperatures = nn.Parameter(torch.ones(1, no_of_landmarks, 1, 1), requires_grad=False)
 
     def forward(self, x):
+        print(x.shape)
+        print(x)
+        plt.imshow(x[0,0])
+        plt.show()
         return self.unet(x)
 
     def scale(self, x):
         y = x / self.temperatures
+        print("X")
+        print(x)
+        print(x.shape)
+        plt.imshow(x[0,0])
+        plt.show()
+
+        print("Y")
+        print(y)
+        print(y.shape)
+        plt.imshow(y[0,0])
+        plt.show()
+
+        print("Temperatures")
+        print(self.temperatures.shape)
+        print(self.temperatures)
+        plt.imshow(self.temperatures)
+        plt.show() 
         return y
 
 
