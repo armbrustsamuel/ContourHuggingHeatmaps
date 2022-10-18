@@ -38,6 +38,8 @@ class Unet(nn.Module):
         plt.imshow(y[0,0])
         plt.show()
 
+        print(torch.eq(x, y))
+
         print("Temperatures")
         print(self.temperatures.shape)
         print(self.temperatures)
