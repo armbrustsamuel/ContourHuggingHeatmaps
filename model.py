@@ -27,24 +27,30 @@ class Unet(nn.Module):
     def scale(self, x):
         y = x / self.temperatures
         print("X")
-        print(x)
+        # print(x)
         print(x.shape)
         plt.imshow(x[0,0])
         plt.show()
 
         print("Y")
-        print(y)
+        # print(y)
         print(y.shape)
         plt.imshow(y[0,0])
         plt.show()
 
-        print(torch.eq(x, y))
+        # compare = torch.eq(x, y)
+        # print(compare)
 
         print("Temperatures")
         print(self.temperatures.shape)
-        print(self.temperatures)
+        # print(self.temperatures)
         # plt.imshow(self.temperatures)
         # plt.show() 
+
+        # x=torch.Tensor(compare)
+        # print("testing transpose")
+        # print(np.transpose(np.argwhere(x==False)))
+
         return y
 
 
