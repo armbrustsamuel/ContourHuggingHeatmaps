@@ -41,8 +41,8 @@ class Unet(nn.Module):
         print("Temperatures")
         print(self.temperatures.shape)
         print(self.temperatures)
-        plt.imshow(self.temperatures)
-        plt.show() 
+        # plt.imshow(self.temperatures)
+        # plt.show() 
         return y
 
 
